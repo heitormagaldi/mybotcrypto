@@ -24,9 +24,10 @@ This files content sensitive informations about you, i'm recommended to add in y
 
 to run : 
 ```
-Firstly, execute o command npm install 
-Use the command 'yarn dev' to run  in test environment  
-Use the command 'yarn prod' to run  in prodution environment 
+Firstly, execute the command npm install, this command will install all project dependencies.
+
+Use the command 'yarn dev' to run in test environment  
+Use the command 'yarn prod' to run in prodution environment 
 ```
 
 
