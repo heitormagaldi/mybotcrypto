@@ -7,8 +7,8 @@ require('dotenv').config({
 
 const  timerId = setInterval(async () => {
   
-  //console.log(await api.time());
-  console.log(await api.depth());
+ // console.log(await api.time());
+ console.log(await api.depth());
 
   const properID = CheckReload();
 

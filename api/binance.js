@@ -1,7 +1,6 @@
 const axios = require('axios');
 const queryString = require('querystring');
-const fromUnixTime = require('date-fns/fromUnixTime');
-const format = require('date-fns/format')
+
 
 async function  publicCall(path, data, method = 'GET'){
     try{
@@ -23,15 +22,19 @@ async function  publicCall(path, data, method = 'GET'){
 
 async function time(){
     const data = await publicCall('/v3/time');
-   //não esta convertendo certo
-   // return format(fromUnixTime(data.serverTime),"dd-MM-yyyy'T'HH:mm:ss");
-   return data;
+    const date = new Date(data.serverTime);
+       
+   return date.getDate()+
+   "/"+(date.getMonth()+1)+
+   "/"+date.getFullYear()+
+   " "+date.getHours()+
+   ":"+date.getMinutes()+
+   ":"+date.getSeconds();
 
 }
 
-
-
 async function depth(symbol = 'BTCBRL', limit = 5 ){
+       
     return publicCall('/v3/depth',{symbol, limit})
 }
 
