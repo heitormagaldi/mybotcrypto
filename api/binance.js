@@ -1,3 +1,8 @@
+
+/// api documentation
+///https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md
+
+
 const axios = require('axios');
 const queryString = require('querystring');
 const crypto = require('crypto');
@@ -10,6 +15,16 @@ const apiSecret = process.env.SECRET_KEY;
 const apiUrl = process.env.API_URL;
 
 
+async function newOrder(symbol, quantity, price, side = 'BUY', type = 'MARKET'){
+    const data = { symbol, side, type, quantity };
+    
+    if(price) data.price  = price;
+    if(type==='LIMIT') data.timeInForce = 'GTC';
+
+    return privateCall('/v3/order', data, 'POST');
+}
+
+
 async function privateCall(path, data = {}, method = 'GET') {
     const timestamp = Date.now();
     const signature = crypto.createHmac('sha256', apiSecret)
@@ -19,6 +34,8 @@ async function privateCall(path, data = {}, method = 'GET') {
     const newData = { ...data, timestamp, signature } ;
     
     const qs = `?${queryString.stringify(newData)}`;
+
+    console.log(qs);
 
     try {
         const result = await axios({
@@ -82,4 +99,4 @@ async function depth(symbol = 'BTCBRL', limit = 5) {
     return publicCall('/v3/depth', { symbol, limit })
 }
 
-module.exports = { time, depth, exchangeInfo, accountInfo }
+module.exports = { time, depth, exchangeInfo, accountInfo, newOrder }
