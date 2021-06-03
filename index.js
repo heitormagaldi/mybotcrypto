@@ -30,7 +30,7 @@ const timerId = setInterval(async () => {
 
 
   if (priceSell < lnFlagSell) {
-    console.log('Hora de comprar!');
+    console.log("It's time to buy!");
     
     const account = await api.accountInfo();
 
